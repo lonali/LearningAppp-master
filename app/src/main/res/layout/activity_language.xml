@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/menu"
+    tools:context=".LanguageActivity">
+
+    <TextView
+        android:id="@+id/language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="Select a language:"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:id="@+id/icon_english"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/language"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/icon_english" />
+
+    <ImageView
+        android:id="@+id/icon_korea"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/english"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/icon_korea" />
+
+    <ImageView
+        android:id="@+id/icon_russian"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/korean"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/icon_russian" />
+
+    <Button
+        android:id="@+id/english"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/language"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/transparent"
+        android:text="ENGLISH" />
+
+    <Button
+        android:id="@+id/korean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/english"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="15dip"
+        android:background="@android:color/transparent"
+        android:text="KOREAN" />
+
+    <Button
+        android:id="@+id/russian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/korean"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="15dip"
+        android:background="@android:color/transparent"
+        android:text="RUSSIAN" />
+
+    <pl.droidsonroids.gif.GifTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/icon_welcome" />
+
+</RelativeLayout>
