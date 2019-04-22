@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- Screens background color-->
-    <color name="menu">#ffd3a3</color>
+    <color name="menu">#309F90</color>
     <color name="category_english">#c7ffbb</color>
     <color name="category_korean">#f8c5ff</color>
     <color name="category_russian">#b8edff</color>

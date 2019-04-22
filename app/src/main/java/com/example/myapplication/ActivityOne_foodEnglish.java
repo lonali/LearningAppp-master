@@ -8,33 +8,32 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
-public class CategoryActivity_english extends AppCompatActivity {
+public class ActivityOne_foodEnglish extends AppCompatActivity {
 
-    GridLayout mainGrid;
+    GridLayout secondGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_english);
+        setContentView(R.layout.activity_one_food_english);
 
-        mainGrid = (GridLayout)findViewById(R.id.mainGrid);
+        secondGrid = (GridLayout)findViewById(R.id.secondGrid);
 
-        setSingleEvent(mainGrid);
+        setSingleEvent(secondGrid);
     }
 
-
-    private void setSingleEvent(GridLayout mainGrid){
+    private void setSingleEvent(GridLayout secondGrid){
         //Loop all child item of Main Grid
-        for(int i = 0; i<mainGrid.getChildCount(); i++)
+        for(int i = 0; i<secondGrid.getChildCount(); i++)
         {
-            CardView cardView = (CardView)mainGrid.getChildAt(i);
+            CardView cardView = (CardView)secondGrid.getChildAt(i);
             final int finalI=i;
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (finalI == 0) //open activity one
                     {
-                        Intent intent = new Intent(CategoryActivity_english.this, ActivityOne_foodEnglish.class);
+                        Intent intent = new Intent(ActivityOne_foodEnglish.this, MatchGameEnglish.class);
                         startActivity(intent);
                     } else if (finalI == 1) //open activity two
                     {
@@ -46,15 +45,15 @@ public class CategoryActivity_english extends AppCompatActivity {
                     }
 
                     else{
-                        Toast.makeText(CategoryActivity_english.this, "Please set Activity for this item", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityOne_foodEnglish.this, "Please set Activity for this item", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
-}
-
     public void back(View view){
-        startActivity(new Intent(CategoryActivity_english.this,LanguageActivity.class));
+        startActivity(new Intent(ActivityOne_foodEnglish.this,CategoryActivity_english.class));
     }
 }

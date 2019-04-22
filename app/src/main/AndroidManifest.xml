@@ -8,6 +8,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ActivityThree_colorsEnglish"></activity>
+        <activity android:name=".ActivityTwo_animalsEnglish" />
+        <activity android:name=".ActivityOne_foodEnglish" />
+        <activity android:name=".MatchGameEnglish" />
         <activity android:name=".CategoryActivity_russian" />
         <activity android:name=".CategoryActivity_korean" />
         <activity android:name=".CategoryActivity_english" />
