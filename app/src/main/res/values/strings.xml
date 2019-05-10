@@ -20,4 +20,5 @@
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
     <string name="title_activity_home__e">home_E</string>
+    <string name="title_activity_word_game">WordGame</string>
 </resources>

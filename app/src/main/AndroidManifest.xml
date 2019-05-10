@@ -8,7 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityThree_colorsEnglish"></activity>
+        <activity
+            android:name=".WordGame"
+            android:label="@string/title_activity_word_game"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ActivityThree_colorsEnglish" />
         <activity android:name=".ActivityTwo_animalsEnglish" />
         <activity android:name=".ActivityOne_foodEnglish" />
         <activity android:name=".MatchGameEnglish" />
