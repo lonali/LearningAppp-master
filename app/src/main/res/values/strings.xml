@@ -21,4 +21,15 @@
     <string name="play_again">Play Again</string>
     <string name="title_activity_home__e">home_E</string>
     <string name="title_activity_word_game">WordGame</string>
+
+    <string name="SignIn">SignIn</string>
+    <string name="SignOut">SignUp</string>
+    <string name="PhoneNumber">Phone Number</string>
+    <string name="PhoneNumber_real">12345</string>
+    <string name="Password">Password</string>
+    <string name="Password_real">1234</string>
+    <string name="Nariman">Nariman</string>
+    <string name="Name">Name</string>
+    <string name="hello">Hello</string>
+
 </resources>

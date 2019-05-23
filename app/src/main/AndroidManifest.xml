@@ -8,17 +8,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EnterActivity"></activity>
+        <activity android:name=".SignIn" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".SingUp" />
+        <activity android:name=".SingIn" />
         <activity
             android:name=".WordGame"
             android:label="@string/title_activity_word_game"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ActivityThree_colorsEnglish" />
-        <activity android:name=".ActivityTwo_animalsEnglish" />
-        <activity android:name=".ActivityOne_foodEnglish" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MenuActivities.ActivityThree_colorsEnglish" />
+        <activity android:name=".MenuActivities.ActivityTwo_animalsEnglish" />
+        <activity android:name=".MenuActivities.ActivityOne_foodEnglish" />
         <activity android:name=".MatchGameEnglish" />
-        <activity android:name=".CategoryActivity_russian" />
-        <activity android:name=".CategoryActivity_korean" />
-        <activity android:name=".CategoryActivity_english" />
+        <activity android:name=".LanguageActivities.CategoryActivity_russian" />
+        <activity android:name=".LanguageActivities.CategoryActivity_korean" />
+        <activity android:name=".LanguageActivities.CategoryActivity_english" />
         <activity android:name=".LanguageActivity" />
         <activity
             android:name=".MainActivity"

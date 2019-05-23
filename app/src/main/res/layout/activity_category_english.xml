@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:weightSum="10"
     android:orientation="vertical"
-    tools:context=".CategoryActivity_english">
+    tools:context=".LanguageActivities.CategoryActivity_english">
 
     <RelativeLayout
         android:layout_width="match_parent"

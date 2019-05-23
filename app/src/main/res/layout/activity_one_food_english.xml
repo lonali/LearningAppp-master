@@ -8,7 +8,7 @@
     android:background="@color/colorAccent"
     android:weightSum="10"
     android:orientation="vertical"
-    tools:context=".ActivityOne_foodEnglish">
+    tools:context=".MenuActivities.ActivityOne_foodEnglish">
 
     <RelativeLayout
         android:layout_width="match_parent"

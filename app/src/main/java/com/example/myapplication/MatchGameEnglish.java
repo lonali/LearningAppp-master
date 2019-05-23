@@ -1,28 +1,19 @@
 package com.example.myapplication;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
+
+import com.example.myapplication.MenuActivities.ActivityOne_foodEnglish;
 
 
 public class MatchGameEnglish extends AppCompatActivity {
@@ -178,7 +169,7 @@ public class MatchGameEnglish extends AppCompatActivity {
     }
 
     public void back(View view){
-        startActivity(new Intent(MatchGameEnglish.this,ActivityOne_foodEnglish.class));
+        startActivity(new Intent(MatchGameEnglish.this, ActivityOne_foodEnglish.class));
     }
 
 }

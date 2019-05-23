@@ -73,7 +73,7 @@ public class WelcomeActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, LanguageActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, EnterActivity.class);
                 startActivity(intent);
 
             }
@@ -120,7 +120,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(true);//false to see only once(when launching app)
-        startActivity(new Intent(WelcomeActivity.this, LanguageActivity.class));
+        startActivity(new Intent(WelcomeActivity.this, EnterActivity.class));
         finish();
     }
 
