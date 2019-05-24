@@ -3,42 +3,66 @@ package com.example.myapplication;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.myapplication.MenuActivities.ActivityOne_foodEnglish;
+import com.example.myapplication.UserModel.DatabaseAccess;
 
 
 public class MatchGameEnglish extends AppCompatActivity {
 
-    final int word = 8;
-    final int num = 8;// the number of card
-    public Button btn[]=new Button[num];
-    public ImageView iv[]=new ImageView[num];
-
-
-    int filped[]=new int[num]; //if filped[i] 0 then button[i] not reversed
-    int count = 0;
-    int img;
-    //int ran[] = new int[num];
-    int t[] = new int[num];
-    int tt[] = new int[num];
-    int r[] = new int[num/2];
-    int temp;
-    int select = -1;
+    public Button btn[];
+    public ImageView iv[];
+    public TextView voca;
+    int filped[];
+    int count;
+    int num;
+    int select;
+    int t[];
+    int tt[];
+    int r[];
+    String picture[];
+    String sound[];
+    String spelling[];
+    MediaPlayer mediaPlayer;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_game_english);
-
+        DatabaseAccess databaseAccess=DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        int word = 8;
+        Intent intent =getIntent();
+        String language = intent.getStringExtra("language");
+        String category = intent.getStringExtra("category");
+       // word=databaseAccess.Count(category);
+        num = 8;// the number of card
+        btn=new Button[num];
+        iv=new ImageView[num];
+        picture = new String[num];
+        sound = new String[num];
+        spelling = new String[num];
+        filped=new int[num]; //if filped[i] 0 then button[i] not reversed
+        count = 0;
+        int img;
+        //int ran[] = new int[num];
+        t = new int[num];
+        tt = new int[num];
+        r = new int[num/2];
+        //int temp;
+        select = -1;
+        voca=findViewById(R.id.tt);
 
 
 
@@ -49,7 +73,7 @@ public class MatchGameEnglish extends AppCompatActivity {
         int k,m,j;
         for(int i = 0;i<num/2;++i) //사진 4장을 고른다
             while(true){
-                int random = (int)(Math.random()*word); //word는 전채 사진수
+                int random = (int)(Math.random()*word)+1; //word는 전채 사진수
                 for(j=0;j<i && r[j]!= random;++j)
                     ;
                 if(j==i){
@@ -58,31 +82,37 @@ public class MatchGameEnglish extends AppCompatActivity {
                 }
             }
 
-        for(int i=0;i<num;++i)
-            t[i] =i;
-
-        int rr = (int)(1680*Math.random());
-
-        for(int i=0;i<num;++i) {
-            tt[i] = r[t[rr % (num - i)]/2];
-            //tt[i] = rr%8;
-            temp =t[num-1-i];
-            t[num-1-i] = t[rr % (num - i)];
-            t[rr % (num - i)] = temp;
+        for(int i=0;i<num/2;++i) {
+            t[i] = r[i];
+            t[i+num/2] = r[i];
         }
 
 
         for(int i=0;i<num;++i) {
+            int rr = (int)(Math.random()*(num-i));
+            tt[i]=t[rr];
+            t[rr] = t[num-1-i];
+        }
+
+
+        for(int i=0;i<num;++i) {
+            if(i==0)
+                voca.setText(language);
             k = getResources().getIdentifier("btn" + (i + 1),
                     "id", getPackageName());
             m = getResources().getIdentifier("iv" + (i + 1), "id", getPackageName());
             btn[i] = (Button)findViewById(k);
             iv[i] = (ImageView)findViewById(m);
             filped[i] = 0;
-            img = getApplicationContext().getResources().getIdentifier("img"+(tt[i] + 1),"drawable",getPackageName());
-            iv[i].setImageResource(img);
+            picture[i]=databaseAccess.getWord(Integer.toString(tt[i]),"english","food")[2];
+            sound[i]=picture[i];
+            spelling[i]=databaseAccess.getWord(Integer.toString(tt[i]),"english","food")[0];
+
+             img = getApplicationContext().getResources().getIdentifier(picture[i],"drawable",getPackageName());
+           iv[i].setImageResource(img);
 
         }
+
 
         View.OnClickListener btnListener=new View.OnClickListener() {
             @Override
@@ -115,9 +145,15 @@ public class MatchGameEnglish extends AppCompatActivity {
                             else if(count == 1)
                                 select =tt[i];
                             else {
+
                                 for(int k=0;k<num;++k)
-                                    if(tt[k] == select)
+                                    if(tt[k] == select) {
                                         filped[k] = 2;
+                                        voca.setText(spelling[k]);
+                                        int soundfile =getApplicationContext().getResources().getIdentifier(sound[k],"raw",getPackageName());
+                                        mediaPlayer = MediaPlayer.create(MatchGameEnglish.this, soundfile);
+                                        mediaPlayer.start();
+                                    }
                                 select = -1;
                                 count = 0;
                             }
@@ -127,7 +163,7 @@ public class MatchGameEnglish extends AppCompatActivity {
         for(int i=0;i<num;++i)
             btn[i].setOnClickListener(btnListener);
 
-
+        databaseAccess.close();
     }
     public void filp(int i){
         ObjectAnimator animator = ObjectAnimator.ofFloat(btn[i],"rotationY",0,180);

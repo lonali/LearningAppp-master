@@ -38,6 +38,8 @@ public class ActivityOne_foodEnglish extends AppCompatActivity {
                     if (finalI == 0) //open activity one
                     {
                         Intent intent = new Intent(ActivityOne_foodEnglish.this, MatchGameEnglish.class);
+                        intent.putExtra("language","english");
+                        intent.putExtra("category","food");
                         startActivity(intent);
                     } else if (finalI == 1) //open activity two
                     {
