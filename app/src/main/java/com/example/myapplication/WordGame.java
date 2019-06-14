@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,9 @@ import android.widget.Toast;
 import com.example.myapplication.Adapters.GridViewAnswerAdapter;
 import com.example.myapplication.Adapters.GridViewSuggestAdapter;
 import com.example.myapplication.Commons.Commons;
+import com.example.myapplication.LanguageActivities.CategoryActivity_english;
+import com.example.myapplication.MenuActivities.ActivityOne_foodEnglish;
+import com.example.myapplication.UserModel.DatabaseAccess;
 
 
 import java.util.ArrayList;
@@ -33,7 +38,9 @@ public class WordGame extends AppCompatActivity {
 
     public ImageView imgViewQuestion;
 
+    public String sound;
 
+    MediaPlayer mediaPlayer;
 
     int[] image_list={
             R.drawable.lion,
@@ -44,13 +51,15 @@ public class WordGame extends AppCompatActivity {
             R.drawable.snail,
 
     };
+    int times = 0;
 
 
 
     public char[] answer;
 
     String correct_answer;
-
+    String language;
+    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -87,8 +96,9 @@ public class WordGame extends AppCompatActivity {
                     result += String.valueOf(Commons.user_submit_answer[i]);
                 if (result.equals(correct_answer)) {
                     Toast.makeText(getApplicationContext(), "Correct! This is " + result, Toast.LENGTH_SHORT).show();
-
-                    //Reset
+                    int soundfile =getApplicationContext().getResources().getIdentifier(sound,"raw",getPackageName());
+                    mediaPlayer = MediaPlayer.create(WordGame.this, soundfile);
+                    mediaPlayer.start();                   //Reset
                     Commons.count = 0;
                     Commons.user_submit_answer = new char[correct_answer.length()];
 
@@ -100,8 +110,10 @@ public class WordGame extends AppCompatActivity {
                     GridViewSuggestAdapter suggestAdapter = new GridViewSuggestAdapter(suggestSource, getApplicationContext(), WordGame.this);
                     gridViewAnswer.setAdapter(suggestAdapter);
                     suggestAdapter.notifyDataSetChanged();
-
-                    setupList();
+                    if(times == 5)
+                        finish();
+                    else
+                        setupList();
 
 
                 } else {
@@ -111,13 +123,32 @@ public class WordGame extends AppCompatActivity {
         });
     }
     private void setupList() {
-
-
+        times++;
+        Intent intent =getIntent();
+        language = intent.getStringExtra("language");
+        category = intent.getStringExtra("category");
+        DatabaseAccess databaseAccess=DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
         //Random photo
+        int totalword = databaseAccess.Count(category);
         Random random = new Random();
-        int imageSelected = image_list[random.nextInt(image_list.length)];
+        int t = (int)(Math.random()*(totalword));
+        String k= null;
+        try {
+            k = databaseAccess.getWord(Integer.toString(t),language,category)[2];
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        int imageSelected =  getApplicationContext().getResources().getIdentifier(k,"drawable",getPackageName());
+        //image_list[random.nextInt(image_list.length)];
         imgViewQuestion.setImageResource(imageSelected);
-        correct_answer = getResources().getResourceName(imageSelected);//читает имя файла
+        try {
+            correct_answer = databaseAccess.getWord(Integer.toString(t),language,category)[0];
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //getResources().getResourceName(imageSelected);//читает имя файла
+        sound = k;
 
         correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/") + 1);
 

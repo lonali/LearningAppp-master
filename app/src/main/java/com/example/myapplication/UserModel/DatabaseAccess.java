@@ -37,7 +37,9 @@ public class DatabaseAccess {
             this.db.close();
     }
 
-    public String[] getWord(String name,String language,String category){
+    public String[] getWord(String name,String language,String category) throws InterruptedException {
+
+
         c=db.rawQuery("select * from "+category+ " where Windex ='"+name+"'",null);
         // StringBuffer buffer = new StringBuffer();
         int a=0;

@@ -11,7 +11,8 @@ import android.widget.Toast;
 public class ActivityOne_foodEnglish extends AppCompatActivity {
 
     GridLayout secondGrid;
-
+    String language;
+    String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +40,17 @@ public class ActivityOne_foodEnglish extends AppCompatActivity {
                         startActivity(intent);
                     } else if (finalI == 1) //open activity two
                     {
-                        //open activity
+                        Intent intent = new Intent(ActivityOne_foodEnglish.this, MatchGameEnglish.class);
+                        intent.putExtra("language","english");
+                        intent.putExtra("category","food");
+                        startActivity(intent);
                     }
                     else if (finalI == 2) //open activity two
                     {
-                        //open activity
+                        Intent intent = new Intent(ActivityOne_foodEnglish.this, MatchGameEnglish.class);
+                        intent.putExtra("language","english");
+                        intent.putExtra("category","food");
+                        startActivity(intent);
                     }
 
                     else{

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.LanguageActivity;
@@ -16,6 +17,7 @@ import com.example.myapplication.WordGame;
 public class CategoryActivity_english extends AppCompatActivity {
 
     GridLayout mainGrid;
+    TextView a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +42,23 @@ public class CategoryActivity_english extends AppCompatActivity {
                     if (finalI == 0) //open activity one
                     {
                         Intent intent = new Intent(CategoryActivity_english.this, ActivityOne_foodEnglish.class);
+                        intent.putExtra("language","english");
+                        intent.putExtra("category","food");
                         startActivity(intent);
                     } else if (finalI == 1) //open activity two
                     {
                         //open activity
-                        Intent intent2 = new Intent(CategoryActivity_english.this, WordGame.class);
-                        startActivity(intent2);
+                        Intent intent = new Intent(CategoryActivity_english.this, ActivityOne_foodEnglish.class);
+                        intent.putExtra("language","english");
+                        intent.putExtra("category","animal");
+                        startActivity(intent);
                     }
                     else if (finalI == 2) //open activity two
                     {
-                        //open activity
+                        Intent intent = new Intent(CategoryActivity_english.this, ActivityOne_foodEnglish.class);
+                        intent.putExtra("language","english");
+                        intent.putExtra("category","color");
+                        startActivity(intent);
                     }
 
                     else{

@@ -15,12 +15,12 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.myapplication.MenuActivities.ActivityOne_foodEnglish;
 import com.example.myapplication.UserModel.DatabaseAccess;
 
 
 public class MatchGameEnglish extends AppCompatActivity {
 
+    int game =0;
     public Button btn[];
     public ImageView iv[];
     public TextView voca;
@@ -31,22 +31,24 @@ public class MatchGameEnglish extends AppCompatActivity {
     int t[];
     int tt[];
     int r[];
+    int word = 30;
     String picture[];
     String sound[];
     String spelling[];
+    String language;
+    String category;
     MediaPlayer mediaPlayer;
-    @Override
-
+    boolean playing=false;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_game_english);
-        DatabaseAccess databaseAccess=DatabaseAccess.getInstance(getApplicationContext());
-        databaseAccess.open();
-        int word = 8;
+
+
         Intent intent =getIntent();
-        String language = intent.getStringExtra("language");
-        String category = intent.getStringExtra("category");
-       // word=databaseAccess.Count(category);
+        language = intent.getStringExtra("language");
+        category = intent.getStringExtra("category");
+
+
         num = 8;// the number of card
         btn=new Button[num];
         iv=new ImageView[num];
@@ -70,48 +72,10 @@ public class MatchGameEnglish extends AppCompatActivity {
         mLayout = (LinearLayout) findViewById(R.id.mLayout);
         mLayout.setBackgroundColor(Color.rgb(163,204,163));
 
-        int k,m,j;
-        for(int i = 0;i<num/2;++i) //사진 4장을 고른다
-            while(true){
-                int random = (int)(Math.random()*word)+1; //word는 전채 사진수
-                for(j=0;j<i && r[j]!= random;++j)
-                    ;
-                if(j==i){
-                    r[i] = random;
-                    break;
-                }
-            }
-
-        for(int i=0;i<num/2;++i) {
-            t[i] = r[i];
-            t[i+num/2] = r[i];
-        }
 
 
-        for(int i=0;i<num;++i) {
-            int rr = (int)(Math.random()*(num-i));
-            tt[i]=t[rr];
-            t[rr] = t[num-1-i];
-        }
+        set();
 
-
-        for(int i=0;i<num;++i) {
-            if(i==0)
-                voca.setText(language);
-            k = getResources().getIdentifier("btn" + (i + 1),
-                    "id", getPackageName());
-            m = getResources().getIdentifier("iv" + (i + 1), "id", getPackageName());
-            btn[i] = (Button)findViewById(k);
-            iv[i] = (ImageView)findViewById(m);
-            filped[i] = 0;
-            picture[i]=databaseAccess.getWord(Integer.toString(tt[i]),"english","food")[2];
-            sound[i]=picture[i];
-            spelling[i]=databaseAccess.getWord(Integer.toString(tt[i]),"english","food")[0];
-
-             img = getApplicationContext().getResources().getIdentifier(picture[i],"drawable",getPackageName());
-           iv[i].setImageResource(img);
-
-        }
 
 
         View.OnClickListener btnListener=new View.OnClickListener() {
@@ -123,7 +87,7 @@ public class MatchGameEnglish extends AppCompatActivity {
                         if(v.getId()==btn[i].getId() && filped[i] ==0) {
                             filp(i);
                             count += 1;
-                            if(count ==2 && tt[i] != select){
+                            if(count ==2 && t[i] != select){
                                 for(int j=0;j<num;++j)
                                     if(filped[j]==1)
                                         unfilp(j);
@@ -143,19 +107,54 @@ public class MatchGameEnglish extends AppCompatActivity {
                                 timer.schedule(task,1500);
                             }
                             else if(count == 1)
-                                select =tt[i];
+                                select =t[i];
                             else {
 
                                 for(int k=0;k<num;++k)
-                                    if(tt[k] == select) {
+                                    if(t[k] == select) {
                                         filped[k] = 2;
                                         voca.setText(spelling[k]);
                                         int soundfile =getApplicationContext().getResources().getIdentifier(sound[k],"raw",getPackageName());
+                                        if(playing) {
+                                            mediaPlayer.stop();
+                                            mediaPlayer.release();
+                                        }
                                         mediaPlayer = MediaPlayer.create(MatchGameEnglish.this, soundfile);
                                         mediaPlayer.start();
+                                        playing = true;
                                     }
                                 select = -1;
                                 count = 0;
+                                int all=0;
+                                for(all=0;all<num && filped[all] == 2;++all)
+                                    ;
+                                if(all == num){
+                                    if(game == 3) {
+                                        finish();
+                                    }
+                                    for(int k=0;k<num;++k)
+                                        unfilp(k);
+                                    /*count =3;
+                                    TimerTask task2 = new TimerTask(){
+                                        public  void run() {
+                                            try {
+
+                                            }
+                                            catch (Exception e){
+                                                e.printStackTrace();
+                                                //finish();
+                                            }
+                                        }
+
+
+                                    };*/
+                                    set();
+                                    /*Timer timer2 = new Timer();
+                                    timer2.schedule(task2,1500);*/
+
+                                }
+
+
                             }
                         }
             }
@@ -163,7 +162,7 @@ public class MatchGameEnglish extends AppCompatActivity {
         for(int i=0;i<num;++i)
             btn[i].setOnClickListener(btnListener);
 
-        databaseAccess.close();
+        //databaseAccess.close();
     }
     public void filp(int i){
         ObjectAnimator animator = ObjectAnimator.ofFloat(btn[i],"rotationY",0,180);
@@ -203,9 +202,80 @@ public class MatchGameEnglish extends AppCompatActivity {
         animator3.start();
         filped[i] = 0;
     }
+    public void set(){
+        game++;
+        DatabaseAccess databaseAccess=DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        word = databaseAccess.Count(category);
+        int k,m,j,img;
+        for(int i = 0;i<num/2;++i) //사진 4장을 고른다
+            while(true){
+                int random = (int)(Math.random()*word)+1; //word는 전채 사진수
+                for(j=0;j<i && r[j]!= random;++j) ;
+
+                if(j==i){
+                    r[i] = random;
+                    break;
+                }
+            }
+
+        for(int i=0;i<num/2;++i) {
+            t[i] = r[i];
+            t[i+num/2] = r[i];
+        }
+
+
+        for(int i=0;i<num;++i) {
+            int temp;
+            int rr = (int)(Math.random()*(num-i));
+            temp = t[rr];
+            t[rr] =t[num-i-1];
+            t[num-i-1] = temp;
+            //int rr = (int)(Math.random()*(num-i));
+            //tt[i]=t[rr];
+            //t[rr] = t[num-1-i];
+        }
+
+
+        for(int i=0;i<num;++i) {
+            if(i==0)
+                voca.setText(language);
+
+            k = getResources().getIdentifier("btn" + (i + 1),
+                    "id", getPackageName());
+            m = getResources().getIdentifier("iv" + (i + 1), "id", getPackageName());
+
+            btn[i] = (Button)findViewById(k);
+            iv[i] = (ImageView)findViewById(m);
+            filped[i] = 0;
+
+            try {
+                picture[i]=databaseAccess.getWord(Integer.toString(t[i]),language,category)[2];
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            sound[i]=picture[i];
+            try {
+                spelling[i]=databaseAccess.getWord(Integer.toString(t[i]),language,category)[0];
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            img = getApplicationContext().getResources().getIdentifier(picture[i],"drawable",getPackageName());
+            iv[i].setImageResource(img);
+
+        }
+        databaseAccess.close();
+    }
 
     public void back(View view){
-        startActivity(new Intent(MatchGameEnglish.this, ActivityOne_foodEnglish.class));
+        /*Intent intent = new Intent(MatchGameEnglish.this,ActivityOne_foodEnglish.class);
+        intent.putExtra("language","english");
+        intent.putExtra("category","food");
+
+        startActivity(intent);*/
+        this.finish();
     }
 
 }
