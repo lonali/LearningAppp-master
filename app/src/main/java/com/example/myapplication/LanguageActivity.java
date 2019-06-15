@@ -1,11 +1,14 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.myapplication.LanguageActivities.CategoryActivity_english;
+import com.example.myapplication.LanguageActivities.CategoryActivity_korean;
+import com.example.myapplication.LanguageActivities.CategoryActivity_russian;
 
 public class LanguageActivity extends AppCompatActivity {
 
@@ -26,6 +29,7 @@ public class LanguageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LanguageActivity.this, CategoryActivity_english.class);
+                intent.putExtra("language","english");
                 startActivity(intent);
             }
         });
@@ -34,6 +38,7 @@ public class LanguageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LanguageActivity.this, CategoryActivity_korean.class);
+                intent.putExtra("language","korean");
                 startActivity(intent);
             }
         });
@@ -42,6 +47,7 @@ public class LanguageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LanguageActivity.this, CategoryActivity_russian.class);
+                intent.putExtra("language","russian");
                 startActivity(intent);
             }
         });

@@ -22,6 +22,19 @@
             android:onClick="back"
             android:text="Back" />
 
+            <TextView
+                android:id="@+id/tt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+
+                android:textSize="20dp" />
+
+
+
+
+
 
     </RelativeLayout>
 
@@ -192,12 +205,19 @@
                     android:background="@drawable/bl" />
             </RelativeLayout>
         </TableRow>
-    </TableLayout>
 
-    <TextView
-        android:id="@+id/tt"
+    </TableLayout>
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/ct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textSize="20dp" />
+
+
+</RelativeLayout>
 
 </LinearLayout>

@@ -39,6 +39,8 @@ public class CategoryActivity_english extends AppCompatActivity {
                     } else if (finalI == 1) //open activity two
                     {
                         //open activity
+                        Intent intent2 = new Intent(CategoryActivity_english.this, WordGame.class);
+                        startActivity(intent2);
                     }
                     else if (finalI == 2) //open activity two
                     {
